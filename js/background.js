@@ -3,5 +3,5 @@ const chosenImage = images[Math.floor(Math.random() * images.length)];//images�
 const bgImage = document.createElement("img");//imgタグを作成
 
 bgImage.src = `img/${chosenImage}`;//imgタグのsrc属性にchosenImageを代入
-bgImage.classList.add("backgroundImg");//imgタグにbackgroundImgクラスを追加
 document.body.appendChild(bgImage);//bodyの中にimgタグを追加
+bgImage.classList.add("backgroundImg");//imgタグにbackgroundImgクラスを追加
