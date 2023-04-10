@@ -2,10 +2,12 @@ const toDoForm = document.getElementById("todo-form");
 const toDoInput = document.querySelector("#todo-form input");//inputタグを取得
 const toDoList = document.getElementById("todo-list");
 
-const toDos = [];
+const TODOS_KEY = "todos";
+
+let toDos = [];
 
 function saveToDos() {
-    localStorage.setItem("todos", JSON.stringify(toDos));//JSON.stringifyはオブジェクトを文字列に変換するメソッド
+    localStorage.setItem("TODOS_KEY", JSON.stringify(toDos));//JSON.stringifyはオブジェクトを文字列に変換するメソッド
 }
 
 function deleteToDo(event) {//eventはイベントが発生した時に自動的に渡される
@@ -36,3 +38,11 @@ function handleTodoSubmit(event) {
 
 
 toDoForm.addEventListener("submit", handleTodoSubmit);//submitイベントが発生したらhandTodoSubmit関数を実行
+
+const savedToDos = localStorage.getItem(TODOS_KEY);//todosというキーで保存されている値を取得
+
+if (savedToDos !== null) {//todosというキーで保存されている値がnullでない場合
+    const parsedToDos = JSON.parse(savedToDos);//JSON.parseは文字列をオブジェクトに変換するメソッド
+    toDos = parsedToDos;
+    parsedToDos.forEach(paintToDo);//forEachは配列の中身を一つずつ取り出す
+}
