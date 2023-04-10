@@ -7,17 +7,20 @@ const TODOS_KEY = "todos";
 let toDos = [];
 
 function saveToDos() {
-    localStorage.setItem("TODOS_KEY", JSON.stringify(toDos));//JSON.stringifyはオブジェクトを文字列に変換するメソッド
+    localStorage.setItem(TODOS_KEY, JSON.stringify(toDos));//JSON.stringifyはオブジェクトを文字列に変換するメソッド
 }
 
 function deleteToDo(event) {//eventはイベントが発生した時に自動的に渡される
     const li = event.target.parentElement;//liタグを取得
+    toDos = toDos.filter((toDo) => toDo.id !== parseInt(li.id));//filterは配列の中身を一つずつ取り出して条件に合うものだけを残すメソッド
+    saveToDos();//削除した後に保存する
     li.remove();//liタグを削除
 }
 function paintToDo(newTodo) {
     const li = document.createElement("li");
+    li.id = newTodo.id;
     const span = document.createElement("span");
-    span.innerText = newTodo;
+    span.innerText = newTodo.text;//newTodoオブジェクトのtextプロパティをspanタグの中に追加
     const button = document.createElement("button");
     button.innerText = "X";
     button.addEventListener("click", deleteToDo);//buttonタグがクリックされたらdeleteToDo関数を実行
@@ -30,8 +33,12 @@ function handleTodoSubmit(event) {
     event.preventDefault();
     const newTodo = toDoInput.value;//入力した値を取得
     toDoInput.value = "";//入力した値を空にする
-    toDos.push(newTodo);//toDos配列にnewTodoを追加
-    paintToDo(newTodo);
+    const newTodoObj = {
+        text: newTodo,
+        id: Date.now(),
+    };
+    toDos.push(newTodoObj);//toDos配列にnewTodoを追加
+    paintToDo(newTodoObj);
     saveToDos();
 }
 

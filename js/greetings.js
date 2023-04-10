@@ -1,8 +1,8 @@
-const loginForm = document.querySelector('#login-form');
-const loginInput = document.querySelector('#login-form input');
-const greeting = document.querySelector('#greeting');
+const loginForm = document.querySelector("#login-form");
+const loginInput = document.querySelector("#login-form input");
+const greeting = document.querySelector("#greeting");
 
-const HIDDEN_CLASSNAME = 'hidden';
+const HIDDEN_CLASSNAME = "hidden";
 const USERNAME_KEY = "username"; ///変数名を揃えるため、あとで変更しやすいように変数に代入しておく
 
 function onLoginSubmit(event) {
@@ -22,7 +22,7 @@ const savedUsername = localStorage.getItem(USERNAME_KEY);///usernameというKey
 
 if (savedUsername === null) {
     loginForm.classList.remove(HIDDEN_CLASSNAME);
-    loginForm.addEventListener('submit', onLoginSubmit);///submitボタンが押されたらonLoginSubmitを実行
+    loginForm.addEventListener("submit", onLoginSubmit);///submitボタンが押されたらonLoginSubmitを実行
 } else {
    paintGreetings(savedUsername)
 }
